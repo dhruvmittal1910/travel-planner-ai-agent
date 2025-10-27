@@ -1,0 +1,14 @@
+# config wrt to the llm model
+
+llm:
+  openai:
+    name: gpt-4o-model
+    provider: openai
+    model: gpt-4o
+    apikey: ${OPENAI_API_KEY}
+
+  groq:
+    name: grop-model
+    provider: groq
+    model: "deepseek-r1-distill-llama-70b"
+    apikey: ${GROQ_API_KEY}
