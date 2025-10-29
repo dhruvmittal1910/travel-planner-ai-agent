@@ -1,7 +1,8 @@
 # loading the models here
 from pydantic import BaseModel, Field
+from typing import Dict,Any, List
 import os, sys
-from config_loader import load_config
+from utils.config_loader import load_config
 from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
@@ -19,9 +20,9 @@ load_dotenv()
     
 
 class ModelLoader(BaseModel):
-    model_provider="groq"
+    model_provider:str="groq"
     # load the config for llm models
-    config=Field(default_factory=load_config, exclude=True)
+    config: Dict[str, Any]=Field(default_factory=load_config, exclude=True)
     
     class Config:
         arbitrary_types_allowed=True

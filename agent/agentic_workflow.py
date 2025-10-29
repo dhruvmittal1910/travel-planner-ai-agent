@@ -2,10 +2,10 @@ from utils.model_loader import ModelLoader ##modelLoader is loading a llm model
 from prompts.prompts import SYSTEM_PROMPT
 from langgraph.graph import StateGraph, MessagesState, END, START
 from langgraph.prebuilt import ToolNode, tools_condition
-# from tools.weather_info_tool import WeatherInfoTool
-# from tools.place_search_tool import PlaceSearchTool
-# from tools.calculate_cost_tool import calculate_cost_tool
-# from tools.currency_conversion_tool import currency_conversion_tool
+from tools.weather_info_tool import WeatherInfoTool
+from tools.place_search_tool import PlaceSearchTool
+from tools.calculate_cost_tool import CalculateCostTool
+from tools.currency_conversion_tool import CurrencyConversionTool
 
 class GraphBuilder():
     
@@ -15,17 +15,17 @@ class GraphBuilder():
         
         self.tools=[]
         
-        # self.weather_tools=WeatherInfoTool()
-        # self.place_search_tool=PlaceSearchTool()
-        # self.calculate_cost_tool=calculate_cost_tool()
-        # self.currency_conversion_tool=currency_conversion_tool()
+        self.weather_tool=WeatherInfoTool()
+        self.place_search_tool=PlaceSearchTool()
+        self.calculate_cost_tool=CalculateCostTool()
+        self.currency_conversion_tool=CurrencyConversionTool()
         
-        # self.tools.extend([* self.weather_tools.weather_tool_list, 
-        #                    * self.place_search_tools.place_search_tool_list,
-        #                    * self.calculator_tools.calculator_tool_list,
-        #                    * self.currency_converter_tools.currency_converter_tool_list])
+        self.tools.extend([* self.weather_tool.weather_tool_list, 
+                           * self.place_search_tool.place_search_tool_list,
+                           * self.calculate_cost_tool.calculator_tool_list,
+                           * self.currency_conversion_tool.currency_converter_tool_list])
         
-        self.llm_with_tools=self.llm_bind_tools(tools=self.tools)
+        self.llm_with_tools=self.llm.bind_tools(tools=self.tools)
         self.graph=None
         self.system_prompt=SYSTEM_PROMPT
         
